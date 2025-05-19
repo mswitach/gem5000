@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Effective Tests Over Time</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    canvas { margin-bottom: 2rem; }
+  </style>
+</head>
+<body>
+  <canvas id="chart" width="1200" height="600"></canvas>
+  <script>
+    const ctx = document.getElementById('chart').getContext('2d');
+    const chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ["19/5, 17:36"],
+        datasets: [{"label":"GEM5K 7692\nH. Paroissien (PBA)","data":[362],"serials":["501084194"],"borderWidth":2,"fill":false,"tension":0.3,"showLine":true,"spanGaps":true},{"label":"GEM5K 8149\nHtal. Nuestra Señora de Luján","data":[386],"serials":["501065158"],"borderWidth":2,"fill":false,"tension":0.3,"showLine":true,"spanGaps":true},{"label":"GEM5K 8468\nHospital Dr. Eduardo Wilde","data":[23],"serials":["501084205"],"borderWidth":2,"fill":false,"tension":0.3,"showLine":true,"spanGaps":true},{"label":"GEM5K 8147\nH. Belgrano (San Martín)","data":[215],"serials":["501084161"],"borderWidth":2,"fill":false,"tension":0.3,"showLine":true,"spanGaps":true},{"label":"GEM5K 7933\nH. Paroissien (PBA)","data":[490],"serials":["501084192"],"borderWidth":2,"fill":false,"tension":0.3,"showLine":true,"spanGaps":true},{"label":"GEM5K 8152\nH. Dr. C. Bocalandro","data":[273],"serials":["501045672"],"borderWidth":2,"fill":false,"tension":0.3,"showLine":true,"spanGaps":true},{"label":"GEM5K 7959\nH. Argentina Diego","data":[99],"serials":["501065148"],"borderWidth":2,"fill":false,"tension":0.3,"showLine":true,"spanGaps":true},{"label":"GEM5K 8462\nUPA 17 Quilmes","data":[309],"serials":["501065163"],"borderWidth":2,"fill":false,"tension":0.3,"showLine":true,"spanGaps":true},{"label":"GEM5K 7858\nH. de Quemados (CABA)","data":[44],"serials":["501065142"],"borderWidth":2,"fill":false,"tension":0.3,"showLine":true,"spanGaps":true},{"label":"GEM5K 7921\nHtal. Vicente López y Planes (Gral. Rodríguez)","data":[142],"serials":["501065121"],"borderWidth":2,"fill":false,"tension":0.3,"showLine":true,"spanGaps":true},{"label":"GEM5K 7691\nHtal. Vicente López y Planes (Gral. Rodríguez)","data":[165],"serials":["501065168"],"borderWidth":2,"fill":false,"tension":0.3,"showLine":true,"spanGaps":true}]
+      },
+      options: {
+        responsive: true,
+        interaction: {
+          mode: 'index',
+          intersect: false
+        },
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: {
+              generateLabels: (chart) => {
+                return chart.data.datasets.map((dataset, i) => {
+                  const labelLines = dataset.label.split("\n");
+                  return {
+                    text: labelLines[0] + " (" + labelLines[1] + ")",
+                    fillStyle: chart.data.datasets[i].borderColor,
+                    strokeStyle: chart.data.datasets[i].borderColor,
+                    lineWidth: 2,
+                    hidden: !chart.isDatasetVisible(i),
+                    datasetIndex: i
+                  };
+                });
+              }
+            }
+          },
+          title: {
+            display: true,
+            text: 'Effective Tests por Asset (Horario Argentina GMT-3)'
+          },
+          tooltip: {
+            callbacks: {
+              afterLabel: function(context) {
+                const serial = context.dataset.serials?.[context.dataIndex];
+                return "Serial: " + (serial || "N/A");
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            ticks: {
+              maxRotation: 90,
+              minRotation: 45
+            },
+            title: {
+              display: true,
+              text: 'Hora (GMT-3 Argentina)'
+            }
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'Effective Tests'
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

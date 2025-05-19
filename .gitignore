@@ -1,9 +1,7 @@
-# dependencies
-node_modules/
-# build outputs
-public/*
-!public/.gitkeep
-# env
-.env
-data/
-*.ndjson
+ # dependencies
+ node_modules/
+ # build outputs
+ public/*
+ !public/.gitkeep
+ # env
+ .env
