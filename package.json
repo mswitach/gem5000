@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
+    "postinstall": "npx playwright install --with-deps",
     "start": "node server.js"
   },
   "dependencies": {
@@ -11,3 +12,4 @@
     "playwright": "^1.52.0"
   }
 }
+
