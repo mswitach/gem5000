@@ -99,5 +99,10 @@ app.get("/run-car", async (req, res) => {
 /* ────── Health check ────── */
 app.get("/", (_req, res) => res.type("text/plain").send("alive"));
 
+// Health check para Render
+app.get('/healthz', (_req, res) => {
+  res.type('text/plain').send('OK');
+});
+
 app.listen(PORT, "0.0.0.0", () => console.log(`Servidor en ${PORT}`));
 
