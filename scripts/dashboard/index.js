@@ -146,7 +146,7 @@ const scrapeAllAssets = async () => {
   try {
     await login(page);
 
-    const outputPath = path.resolve('data/dashboard-history.ndjson');
+    const outputPath = path.join(__dirname, 'data', 'dashboard-history.ndjson');
     fs.mkdirSync(path.dirname(outputPath), { recursive: true });
 
     const records = [];
