@@ -21,22 +21,8 @@ const rawLines = fs.readFileSync(dataFile, 'utf-8')
                    .filter(Boolean);
 const records = rawLines.map(line => JSON.parse(line));
 
-// 1) Generar fecha/hora de reporte
-const reportDate = new Date().toLocaleString('es-AR', {
-  timeZone: 'America/Argentina/Buenos_Aires'
-});
-
 // Aquí va tu lógica para construir la tabla HTML…
-const headerCols = [
-  'timestamp',
-  'assetName',
-  'EFFECTIVE TESTS',
-  'ONBOARD DAYS',
-  'ONBOARD STABILITY',
-  'LAST INSERTION',
-  'serialNumber',
-  'cartridgeLocation'
-];
+const headerCols = ['timestamp','assetName','EFFECTIVE TESTS','ONBOARD DAYS','ONBOARD STABILITY','LAST INSERTION','serialNumber','cartridgeLocation'];
 const rows = records.map(r =>
   `<tr>${headerCols.map(c => `<td>${r[c] ?? ''}</td>`).join('')}</tr>`
 ).join('\n');
@@ -49,12 +35,10 @@ const html = `
   <title>Effective Tests Table</title>
 </head>
 <body>
-  <!-- 2) Mostrar fecha/hora -->
-  <p>🕒 Reporte generado: ${reportDate}</p>
   <h1>Effective Tests</h1>
   <table border="1">
     <thead>
-      <tr>${headerCols.map(c => `<th>${c}</th>`).join('')}</tr>
+      <tr>${headerCols.map(c=>`<th>${c}</th>`).join('')}</tr>
     </thead>
     <tbody>
       ${rows}
