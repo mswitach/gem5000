@@ -65,7 +65,7 @@ const html = `
 `;
 
 // Asegura que exista la carpeta donde vas a volcar la tabla
-const outDir = path.join(__dirname, '..', 'public', 'dashboard');
+const outDir = path.join(__dirname, '..', '..', 'public', 'dashboard');
 fs.mkdirSync(outDir, { recursive: true });
 
 // Escribe el HTML final
